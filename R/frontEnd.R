@@ -90,7 +90,7 @@ addPredictorOptions <- function() {
 
 
 
-addWidgetTabContent <- function() {
+addInputTabContent <- function() {
   tabItem(
     tabName = "Widgets",
     addLoadFilesFromDirectory("file1"),
@@ -155,7 +155,7 @@ ui <- dashboardPage(
   dashboardBody( # Boxes need to be put in a row (or column)
     tabItems(
       # 1st tab content
-      addWidgetTabContent(),
+      addInputTabContent(),
       # 2nd tab content
       addVisuTabContent(),
       # 3rd tab
