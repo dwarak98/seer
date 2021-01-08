@@ -18,7 +18,6 @@ library(shinycssloaders)
 library(readr)
 # Options for Spinner
 options(spinner.color = "#0275D8", spinner.color.background = "#ffffff", spinner.size = 2)
-print(getwd())
 
 
 options(shiny.maxRequestSize = 30 * 1024^2)

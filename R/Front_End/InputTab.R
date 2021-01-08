@@ -6,5 +6,6 @@ addInputTabContent <- function() {
     addLoadFilesFromDirectory("file1"),
     addNumericInput("n", "Enter Number of Rows to be displayed"),
     DT::dataTableOutput("head")
+
   )
 }

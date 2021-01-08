@@ -17,8 +17,7 @@ library(tseries)
 library(sjmisc)
 library(shinycssloaders)
 
-print(getwd())
-source("InputTab.R")
+
 source("VizTab.R")
 source("PredictTab.R")
 
@@ -34,6 +33,7 @@ ui <- dashboardPage(
     addDashboardMenu(id = "Widgets", logo = "upload"),
     addDashboardMenu(id = "Visualization", logo = "chart-bar"),
     addDashboardMenu(id = "Prediction", logo = "search")
+
   )),
   dashboardBody( # Boxes need to be put in a row (or column)
     tabItems(
