@@ -1,6 +1,7 @@
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-source("frontEnd.R")
-source("backEnd.R")
+source("Front_End/frontEnd.R")
+source("Back_End/backEnd.R")
 
 
 shinyApp(ui, server)
