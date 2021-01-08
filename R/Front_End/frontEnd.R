@@ -18,6 +18,7 @@ library(sjmisc)
 library(shinycssloaders)
 
 
+source("InputTab.R")
 source("VizTab.R")
 source("PredictTab.R")
 
