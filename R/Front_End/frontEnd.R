@@ -19,6 +19,7 @@ library(shinycssloaders)
 
 
 source("InputTab.R")
+# source("DataPreProcessTab.R")
 source("VizTab.R")
 source("PredictTab.R")
 
@@ -34,15 +35,15 @@ ui <- dashboardPage(
     addDashboardMenu(id = "Widgets", logo = "upload"),
     addDashboardMenu(id = "Visualization", logo = "chart-bar"),
     addDashboardMenu(id = "Prediction", logo = "search")
-
   )),
   dashboardBody( # Boxes need to be put in a row (or column)
     tabItems(
       # 1st tab content
       addInputTabContent(),
       # 2nd tab content
-      addVisuTabContent(),
+      # addDataProsTabContent(),
       # 3rd tab
+      addVisuTabContent(),
       addPredictTabContent()
     )
   )

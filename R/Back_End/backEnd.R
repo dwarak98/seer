@@ -16,6 +16,7 @@ library("forecast")
 library("tseries")
 library(shinycssloaders)
 library(readr)
+library(rlang)
 # Options for Spinner
 options(spinner.color = "#0275D8", spinner.color.background = "#ffffff", spinner.size = 2)
 
@@ -122,18 +123,18 @@ server <- function(input, output, session) {
 
     ####################### Table Display ###################
 
-    output$tablecol1 <- renderUI({
+    output$tableValue <- renderUI({
       if (input$charttype == "Table") {
         choices <- unique(colnames(data()))
         selectInput("VALUE",
-                    "ENTER THE AMOUNT OR VALUE",
+                    "Enter the Amount OR Value",
                     choices = choices,
                     multiple = TRUE
         )
       }
     })
 
-    output$tablecol2 <- renderUI({
+    output$tableRow <- renderUI({
       if (input$charttype == "Table") {
         choices <- unique(colnames(data()))
 
@@ -145,14 +146,15 @@ server <- function(input, output, session) {
       }
     })
 
-    output$tablecol3 <- renderUI({
+    output$tableCol <- renderUI({
       if (input$charttype == "Table") {
-        choices <- unique(colnames(data()))
+        choices <- append(" ",unique(colnames(data())))
 
         selectInput("Column",
                     "List of Columns",
                     choices = choices,
-                    multiple = TRUE
+                    multiple = FALSE,
+                    selected = NULL
         )
       }
     })
@@ -161,11 +163,11 @@ server <- function(input, output, session) {
 
     output$tableplot <- renderUI({
       if (input$charttype == "Table") {
-        validate(
-          need(input$Row != "", "Choose Amount"),
-          need(input$VALUE != "", "Choose Rows"),
-          need(input$Column != "", "Choose Column")
-        )
+        # validate(
+        #   need(input$Row != "", "Choose Amount"),
+        #   need(input$VALUE != "", "Choose Rows"),
+        #   need(input$Column != "", "Choose Column")
+        # )
         DT::dataTableOutput(outputId = "table")
       }
     })
@@ -176,9 +178,8 @@ server <- function(input, output, session) {
 
 
     new_data <- reactive({
-      print(input$Column[2])
       rowname <- input$Row
-      if (is.na(input$Column[2])) {
+      if (input$Column[1]!=" ") {
         newdata1 <- data() %>% rename(
           Col1 = input$Column[1],
           Vue = input$VALUE,
@@ -189,19 +190,26 @@ server <- function(input, output, session) {
           select(Col1, Vue, input$Row) %>%
           pivot_wider(names_from = Col1, values_from = Vue, values_fn = list(Vue = sum))
       }
+      else{
+        data() %>%
+          select(input$VALUE, input$Row) %>%
+          group_by(!!!rlang::syms(input$Row)) %>%
+          summarise_all(funs(sum))
 
-      else if (!is.na(input$Column[2])) {
-        newdata1 <- data1() %>% rename(
-          Col1 = input$Column[1],
-          Col2 = input$Column[2],
-          Vue = input$VALUE,
-          Rws = input$Row
-        )
-        newdata1 %>%
-          group_by(Col1, Col2) %>%
-          summarise(Value = sum(as.numeric(Vue)))
-        # aggregate(newdata1$input$VALUE, by=list(newdata1$input$Column), FUN=sum)
       }
+
+      # else if (!is.na(input$Column[2])) {
+      #   newdata1 <- data1() %>% rename(
+      #     Col1 = input$Column[1],
+      #     Col2 = input$Column[2],
+      #     Vue = input$VALUE,
+      #     Rws = input$Row
+      #   )
+      #   newdata1 %>%
+      #     group_by(Col1, Col2) %>%
+      #     summarise(Value = sum(as.numeric(Vue)))
+      #   # aggregate(newdata1$input$VALUE, by=list(newdata1$input$Column), FUN=sum)
+      # }
     })
 
 
