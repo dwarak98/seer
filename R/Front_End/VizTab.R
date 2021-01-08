@@ -10,9 +10,9 @@ addVisuTabContent <- function() {
         uiOutput("lineplotVar1"), # Reactive Input
         uiOutput("lineplotVar2"), # Reactive Input
         uiOutput("lineplotVar3"), # Reactive Input
-        uiOutput("tablecol1"), # Reactive Input
-        uiOutput("tablecol2"),
-        uiOutput("tablecol3")
+        uiOutput("tableRow"), # Reactive Input
+        uiOutput("tableCol"),
+        uiOutput("tableValue")
       ),
       box(
         width = 9,
