@@ -47,11 +47,11 @@ addNumericInput <- function(id, caption = "Enter Numeric Input") {
   )
 }
 
-addChartOptions <- function() {
+addChartOptions <- function(id) {
   selectInput(
-    "charttype",
+    id,
     "Plot Type",
-    choices = c("Line", "Bar", "Table"),
+    choices = c("Table", "Line", "Bar"),
     multiple = FALSE
   )
 }
