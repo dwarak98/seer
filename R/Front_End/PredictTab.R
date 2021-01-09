@@ -1,21 +1,22 @@
 source("UI_widgets.R")
 
-addPredictTabContent <- function() {
+addPredictTabContent <- function(id) {
+  ns <- NS(id)
   tabItem(
     tabName = "Prediction",
     fluidRow(
       box(
         width = 3,
         addPredictorOptions(),
-        uiOutput("P"),
-        uiOutput("Q"),
-        uiOutput("D"),
-        uiOutput("y_variable"),
-        uiOutput("x")
+        uiOutput(ns("P")),
+        uiOutput(ns("Q")),
+        uiOutput(ns("D")),
+        uiOutput(ns("y_variable")),
+        uiOutput(ns("x"))
       ),
       box(
         width = 9,
-        uiOutput("table1plot")
+        uiOutput(ns("table1plot"))
       )
     )
   )

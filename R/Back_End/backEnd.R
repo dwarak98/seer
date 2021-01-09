@@ -39,14 +39,14 @@ server <- function(input, output, session) {
 
   ############ Read the imported csv file ######################
 
- # data <- readUploadedCSVData(input, output, session)
+  # data <- readUploadedCSVData(input, output, session)
   data <- InputTabServer("readUploadedCSVData")
 
   ########### Vizualization Tab #################
 
- # displayDynamicUI() # contain all the options
-#  addLinePlot()
-  addVizServer("Viz",data)
+  # displayDynamicUI() # contain all the options
+  #  addLinePlot()
+  addVizServer("Viz", data)
 
 
 
@@ -56,9 +56,9 @@ server <- function(input, output, session) {
     if (input$algo == "ARIMA") {
       choices <- unique(colnames(data()))
       selectInput("y_variable1",
-                  "What to Predict",
-                  choices = choices,
-                  multiple = TRUE
+        "What to Predict",
+        choices = choices,
+        multiple = TRUE
       )
     }
   })
@@ -67,9 +67,9 @@ server <- function(input, output, session) {
     if (input$algo == "ARIMA") {
       choices <- unique(colnames(data()))
       selectInput("y_variable1",
-                  "What to Predict",
-                  choices = choices,
-                  multiple = TRUE
+        "What to Predict",
+        choices = choices,
+        multiple = TRUE
       )
     }
   })
@@ -77,8 +77,8 @@ server <- function(input, output, session) {
   output$P <- renderUI({
     if (input$algo == "ARIMA") {
       numericInput("P1",
-                   h3("Auto Regressive Coeffcienct (P)"),
-                   value = 1
+        h3("Auto Regressive Coeffcienct (P)"),
+        value = 1
       )
     }
   })
@@ -86,8 +86,8 @@ server <- function(input, output, session) {
   output$Q <- renderUI({
     if (input$algo == "ARIMA") {
       numericInput("Q1",
-                   h3("Moving Average Coeffcienct (P)"),
-                   value = 1
+        h3("Moving Average Coeffcienct (P)"),
+        value = 1
       )
     }
   })
@@ -95,8 +95,8 @@ server <- function(input, output, session) {
   output$D <- renderUI({
     if (input$algo == "ARIMA") {
       numericInput("D1",
-                   h3("Differencing (D)"),
-                   value = 1
+        h3("Differencing (D)"),
+        value = 1
       )
     }
   })

@@ -44,7 +44,7 @@ ui <- dashboardPage(
       # addDataProsTabContent(),
       # 3rd tab
       addVisuTabContent("Viz"),
-      addPredictTabContent()
+      addPredictTabContent("Predict")
     )
   )
 )
