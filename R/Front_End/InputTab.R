@@ -1,11 +1,12 @@
 source("UI_widgets.R")
 
-addInputTabContent <- function() {
+addInputTabContent <- function(id) {
+  ns <- NS(id)
   tabItem(
     tabName = "Widgets",
-    addLoadFilesFromDirectory("file1"),
-    addNumericInput("n", "Enter Number of Rows to be displayed"),
-    DT::dataTableOutput("head")
+    addLoadFilesFromDirectory(ns("file1")),
+    addNumericInput(ns("n"), "Enter Number of Rows to be displayed"),
+    DT::dataTableOutput(ns("head"))
 
   )
 }
