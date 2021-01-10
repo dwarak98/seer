@@ -116,13 +116,14 @@ addVizServer <- function(id, data) {
           if (input$Column[1] != " ") {
             newdata1 <- data() %>% rename(
               Col1 = input$Column[1],
-              Vue = input$VALUE,
+             # Vue = input$VALUE,
             )
+            # val_vector <- (rlang::syms(input$VALUE))
 
 
             newdata1 %>%
-              select(Col1, Vue, input$Row) %>%
-              pivot_wider(names_from = Col1, values_from = Vue, values_fn = list(Vue = sum))
+              select(Col1, input$VALUE, input$Row) %>%
+              pivot_wider(names_from = Col1, values_from = all_of(input$VALUE), values_fn = sum)
           }
           else {
             data() %>%
