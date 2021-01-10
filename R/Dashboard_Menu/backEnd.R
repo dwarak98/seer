@@ -32,17 +32,14 @@ server <- function(input, output, session) {
 
 
   ############ Read the imported csv file ######################
-
-  # data <- readUploadedCSVData(input, output, session)
-  data <- InputTabServer("readUploadedCSVData")
+  data <- InputTabServer("id")
 
   ########### Vizualization Tab #################
 
-  # displayDynamicUI() # contain all the options
-  #  addLinePlot()
-  addVizServer("Viz", data)
-  addPredictServer("Predict",data)
+  addVizServer("id", data)
+
+  ########### Prediction Tab #################
 
 
-
+  addPredictServer("id", data)
 }
