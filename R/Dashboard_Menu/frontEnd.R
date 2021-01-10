@@ -42,12 +42,12 @@ ui <- dashboardPage(
   dashboardBody( # Boxes need to be put in a row (or column)
     tabItems(
       # 1st tab content
-      addInputTabContent("readUploadedCSVData"),
+      addInputTabContent("id"),
       # 2nd tab content
       # addDataProsTabContent(),
       # 3rd tab
-      addVisuTabContent("Viz"),
-      addPredictTabContent("Predict")
+      addVisuTabContent("id"),
+      addPredictTabContent("id")
     )
   )
 )

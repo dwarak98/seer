@@ -23,7 +23,7 @@ addInputTabContent <- function(id) {
   tabItem(
     tabName = "Widgets",
     addLoadFilesFromDirectory(ns("file1")),
-    addNumericInput(ns("n"), "Enter Number of Rows to be displayed"),
+    # addNumericInput(ns("n"), "Enter Number of Rows to be displayed"),
     DT::dataTableOutput(ns("head"))
 
   )

@@ -98,11 +98,13 @@ addVizServer <- function(id, data) {
 
         output$tableplot <- renderUI({
           if (input$charttype == "Table") {
-            # validate(
-            #   need(input$Row != "", "Choose Amount"),
-            #   need(input$VALUE != "", "Choose Rows"),
+           # choices <- append(" ", unique(colnames(data())))
+            validate(
+              need(input$file1 !="","Please upload csv file using Widgets Tab"),
+              need(input$Row != "", "Choose Rows")
+            #   need(input$VALUE != "", "Choose Value/Amount")
             #   need(input$Column != "", "Choose Column")
-            # )
+            )
             DT::dataTableOutput(outputId = session$ns("table")) %>% withSpinner(type = 4, color = "#0dc5c1")
           }
         })
