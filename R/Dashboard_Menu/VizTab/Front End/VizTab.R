@@ -1,5 +1,12 @@
-source("UI_widgets.R")
-
+# source("UI_widgets.R")
+addChartOptions <- function(id) {
+  selectInput(
+    id,
+    "Plot Type",
+    choices = c("Table", "Line", "Bar"),
+    multiple = FALSE
+  )
+}
 addVisuTabContent <- function(id) {
   ns <- NS(id)
   tabItem(

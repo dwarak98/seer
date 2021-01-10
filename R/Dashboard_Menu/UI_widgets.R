@@ -29,13 +29,7 @@ addPlot <- function(id, height = 400) {
   ) %>% withSpinner(type = 4, color = "#0dc5c1")
 }
 
-addLoadFilesFromDirectory <- function(id) {
-  fileInput(
-    id,
-    "Choose CSV File",
-    accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
-  )
-}
+
 
 addNumericInput <- function(id, caption = "Enter Numeric Input") {
   numericInput(
