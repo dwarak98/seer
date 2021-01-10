@@ -1,5 +1,12 @@
-source("UI_widgets.R")
-
+# source("UI_widgets.R")
+addPredictorOptions <- function(id) {
+  selectInput(
+    id,
+    "Algorithm",
+    choices = c("ARIMA", "Linear Regression"),
+    multiple = FALSE
+  )
+}
 addPredictTabContent <- function(id) {
   ns <- NS(id)
   tabItem(
@@ -7,7 +14,7 @@ addPredictTabContent <- function(id) {
     fluidRow(
       box(
         width = 3,
-        addPredictorOptions(),
+        addPredictorOptions(ns("algo")),
         uiOutput(ns("P")),
         uiOutput(ns("Q")),
         uiOutput(ns("D")),
