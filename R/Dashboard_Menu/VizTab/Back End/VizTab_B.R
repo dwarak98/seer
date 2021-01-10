@@ -45,8 +45,8 @@ addVizServer <- function(id, data) {
           if (input$charttype == "Line") {
             validate(
               need(input$xaxis != "", "Choose X Axis"),
-              need(input$yaxis != "", "Choose Y Axis"),
-              need(input$category != "", "Choose Category")
+              need(input$yaxis != "", "Choose Y Axis")
+              # need(input$category != "", "Choose Category")
             )
             plotlyOutput(outputId = session$ns("dline"), height = 400) %>% withSpinner(type = 4, color = "#0dc5c1")
             # addLinePlot()
@@ -98,12 +98,12 @@ addVizServer <- function(id, data) {
 
         output$tableplot <- renderUI({
           if (input$charttype == "Table") {
-           # choices <- append(" ", unique(colnames(data())))
+            # choices <- append(" ", unique(colnames(data())))
             validate(
-              need(input$file1 !="","Please upload csv file using Widgets Tab"),
+              need(input$file1 != "", "Please upload csv file using Widgets Tab"),
               need(input$Row != "", "Choose Rows")
-            #   need(input$VALUE != "", "Choose Value/Amount")
-            #   need(input$Column != "", "Choose Column")
+              #   need(input$VALUE != "", "Choose Value/Amount")
+              #   need(input$Column != "", "Choose Column")
             )
             DT::dataTableOutput(outputId = session$ns("table")) %>% withSpinner(type = 4, color = "#0dc5c1")
           }
@@ -116,7 +116,7 @@ addVizServer <- function(id, data) {
           if (input$Column[1] != " ") {
             newdata1 <- data() %>% rename(
               Col1 = input$Column[1],
-             # Vue = input$VALUE,
+              # Vue = input$VALUE,
             )
             # val_vector <- (rlang::syms(input$VALUE))
 
@@ -160,33 +160,66 @@ addVizServer <- function(id, data) {
 
       addLinePlot <- function() {
         output$dline <- renderPlotly({
-          p1 <-
-            data() %>%
-            rename(
-              col1 = input$xaxis,
-              col2 = input$yaxis,
-              category = input$category
-            ) %>%
-            ggplot(aes(
-              x = col1,
-              y = col2,
-              fill = category,
-              text = paste(
-                "</br>X-axis: ",
-                col1,
-                "</br>Y-Axis: ",
-                col2,
-                "</br>Category: ",
-                category
+          if (is.null(input$category)) {
+            p1 <-
+              data() %>%
+              rename(
+                col1 = input$xaxis,
+                col2 = input$yaxis
+              ) %>%
+              ggplot(aes(
+                x = col1,
+                y = col2,
+                text = paste(
+                  "</br>X-axis: ",
+                  col1,
+                  "</br>Y-Axis: ",
+                  col2
+                  #   "</br>Category: ",
+                  #   category
+                )
+              )) +
+              geom_line(color="#69b3a2", size=2, alpha=0.9, linetype=2) +
+              theme_minimal() +
+              labs(
+                y = input$yaxis,
+                x = input$xaxis
+
               )
-            )) +
-            geom_col() +
-            theme_minimal() +
-            labs(
-              y = input$yaxis,
-              x = input$xaxis,
-              col = input$category
-            )
+          }
+          else {
+
+            p1 <-
+              data() %>%
+              rename(
+                col1 = input$xaxis,
+                col2 = input$yaxis,
+                category = input$category
+              ) %>%
+              ggplot(aes(
+                x = col1,
+                y = col2,
+                fill = category,
+                text = paste(
+                  "</br>X-axis: ",
+                  col1,
+                  "</br>Y-Axis: ",
+                  col2,
+                  "</br>Category: ",
+                  category
+                )
+              )) +
+              geom_col() +
+              theme_minimal() +
+              labs(
+                y = input$yaxis,
+                x = input$xaxis,
+                col = input$category
+              )
+          }
+
+
+
           ggplotly(p1, tooltip = c("text"))
         })
       }
