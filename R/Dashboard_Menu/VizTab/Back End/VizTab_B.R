@@ -163,6 +163,10 @@ addVizServer <- function(id, data) {
           if (is.null(input$category)) {
             p1 <-
               data() %>%
+              select(input$xaxis, input$yaxis) %>%
+              filter(!is.null(input$yaxis)) %>%
+              group_by(!!!rlang::syms(input$xaxis)) %>%
+              summarise_all(funs(sum)) %>%
               rename(
                 col1 = input$xaxis,
                 col2 = input$yaxis
@@ -179,7 +183,8 @@ addVizServer <- function(id, data) {
                   #   category
                 )
               )) +
-              geom_line(color="#69b3a2", size=2, alpha=0.9, linetype=2) +
+              geom_line(color="#69b3a2", size=2, alpha=0.9, linetype=2,na.rm = TRUE) +
+              geom_point()+
               theme_minimal() +
               labs(
                 y = input$yaxis,
@@ -191,6 +196,10 @@ addVizServer <- function(id, data) {
 
             p1 <-
               data() %>%
+              select(input$xaxis, input$yaxis, input$category) %>%
+              filter(!is.null(input$yaxis)) %>%
+              group_by(!!!rlang::syms(input$xaxis),!!!rlang::syms(input$category)) %>%
+              summarise_all(funs(sum)) %>%
               rename(
                 col1 = input$xaxis,
                 col2 = input$yaxis,
@@ -209,7 +218,8 @@ addVizServer <- function(id, data) {
                   category
                 )
               )) +
-              geom_col() +
+              geom_line(na.rm = TRUE) +
+              geom_point() +
               theme_minimal() +
               labs(
                 y = input$yaxis,
