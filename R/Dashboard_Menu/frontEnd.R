@@ -22,6 +22,7 @@ source("InputTab/Front End/InputTab.R", chdir = TRUE)
 # source("DataPreProcessTab.R")
 source("VizTab/Front End/VizTab.R", chdir = TRUE)
 source("PredictTab/Front End/PredictTab.R", chdir = TRUE)
+source("DataManipulationTab/Front End/DataMan.R", chdir = TRUE)
 
 # Options for Spinner
 options(spinner.color = "#0275D8", spinner.color.background = "#ffffff", spinner.size = 1)
@@ -36,6 +37,7 @@ ui <- dashboardPage(
   ),
   dashboardSidebar(sidebarMenu(
     addDashboardMenu(id = "Widgets", logo = "upload"),
+    addDashboardMenu(id = "DataManipulation", logo = "upload"),
     addDashboardMenu(id = "Visualization", logo = "chart-bar"),
     addDashboardMenu(id = "Prediction", logo = "search")
   )),
@@ -44,7 +46,7 @@ ui <- dashboardPage(
       # 1st tab content
       addInputTabContent("id"),
       # 2nd tab content
-      # addDataProsTabContent(),
+      addDataManTabContent("id"),
       # 3rd tab
       addVisuTabContent("id"),
       addPredictTabContent("id")
