@@ -20,6 +20,8 @@ library(rlang)
 source("InputTab/Back End/InputTab_B.R", chdir = TRUE)
 source("VizTab/Back End/VizTab_B.R", chdir = TRUE)
 source("PredictTab/Back End/PredictTab_B.R", chdir = TRUE)
+source("DataManipulationTab/Back End/DataMan_B.R", chdir = TRUE)
+
 
 # Options for Spinner
 options(spinner.color = "#0275D8", spinner.color.background = "#ffffff", spinner.size = 2)
@@ -33,6 +35,12 @@ server <- function(input, output, session) {
 
   ############ Read the imported csv file ######################
   data <- InputTabServer("id")
+
+  ########### Data Manipulation Tab #################
+
+
+  addDataManServer("id", data)
+
 
   ########### Vizualization Tab #################
 
