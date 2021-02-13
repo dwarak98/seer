@@ -25,7 +25,7 @@ addDataManTabContent <- function(id){
     fluidRow(
       box(
         width = 12,
-        uiOutput(ns("Query"))
+        DT::dataTableOutput(ns("DataTable"))
       )
     )
   )

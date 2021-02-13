@@ -1,8 +1,12 @@
 library(shinydashboard)
 library(shiny)
+library(anytime)
+
 
 
 addDataManServer <- function(id, data) {
+  # sheet_write(data(),ss, sheet = "Data")
+
   moduleServer(
     id,
     function(input, output, session) {
@@ -49,10 +53,38 @@ addDataManServer <- function(id, data) {
 
         })
 
-        output$Query <- renderUI({
-          DT::dataTableOutput(outputId = session$ns("table")) %>% withSpinner(type = 4, color = "#0dc5c1")
+        applyFormatting <- function(data){
+          for (col in input$DateColumns) {
+            data[[(col)]] <- anydate(data[[col]])
+          }
 
-        })
+          for (col in input$DateTimeColumns) {
+            data[[(col)]] <- anytime(data[[col]])
+          }
+
+          for (col in input$TextColumns) {
+            data[[(col)]] <- as.character(data[[col]])
+          }
+
+          for (col in input$ValueColumns) {
+            data[[(col)]] <- as.numeric(data[[col]])
+          }
+
+          return(data)
+
+        }
+
+
+
+
+        output$DataTable <- DT::renderDataTable({
+          applyFormatting(data()) # input$n,
+        },filter =  'top',
+        options = list(scrollX = TRUE)
+        )
+
+        return(data)
+
 
 
       }

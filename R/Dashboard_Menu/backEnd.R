@@ -39,7 +39,7 @@ server <- function(input, output, session) {
   ########### Data Manipulation Tab #################
 
 
-  addDataManServer("id", data)
+  data <- addDataManServer("id", data)
 
 
   ########### Vizualization Tab #################
