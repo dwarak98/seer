@@ -11,8 +11,6 @@ addDataManServer <- function(id, data) {
     id,
     function(input, output, session) {
 
-      addDataObjectParamater <- function(){
-
         output$DateObjects <- renderUI({
             choices <- unique(colnames(data()))
             selectInput(session$ns("DateColumns"),
@@ -83,20 +81,14 @@ addDataManServer <- function(id, data) {
         options = list(scrollX = TRUE)
         )
 
-        return(data)
+        data1 <- reactive({
+          applyFormatting(data())
+        })
 
+        return(data1)
 
 
       }
-
-
-
-
-
-      addDataObjectParamater()
-
-
-    }
 
   )
 
