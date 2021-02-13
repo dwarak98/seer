@@ -183,7 +183,8 @@ addVizServer <- function(id, data) {
                   #   category
                 )
               )) +
-              geom_line(color="#69b3a2", size=2, alpha=0.9, linetype=2,na.rm = TRUE) +
+              geom_line(aes(group=1),color="#69b3a2", size=2, alpha=0.9, linetype=2) +
+              scale_x_datetime(expand = c(0, 5000))+
               geom_point()+
               theme_minimal() +
               labs(
@@ -208,7 +209,7 @@ addVizServer <- function(id, data) {
               ggplot(aes(
                 x = col1,
                 y = col2,
-                fill = category,
+                color = category,
                 text = paste(
                   "</br>X-axis: ",
                   col1,
@@ -218,12 +219,13 @@ addVizServer <- function(id, data) {
                   category
                 )
               )) +
-              geom_line(na.rm = TRUE) +
+              geom_line(aes(group=1)) +
+              scale_x_datetime(expand = c(0, 5000))+
               geom_point() +
               theme_minimal() +
               labs(
-                y = input$yaxis,
                 x = input$xaxis,
+                y = input$yaxis,
                 col = input$category
               )
           }

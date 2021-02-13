@@ -9,7 +9,7 @@ InputTabServer <- function(id) {
         req(input$file1)
         inFile <- input$file1
         print(inFile$datapath)
-        read_csv(inFile$datapath)
+        read.csv(inFile$datapath)
       })
 
       ########## Displays top 5 rows of the imported csv #############
