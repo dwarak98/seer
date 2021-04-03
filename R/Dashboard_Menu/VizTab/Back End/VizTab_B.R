@@ -160,7 +160,7 @@ addVizServer <- function(id, data) {
 
       addLinePlot <- function() {
         output$dline <- renderPlotly({
-          if (is.null(input$category)) {
+          if (is.null(input$category) & is.null(input$yaxis[2])) {
             p1 <-
               data() %>%
               select(input$xaxis, input$yaxis) %>%
@@ -193,6 +193,47 @@ addVizServer <- function(id, data) {
 
               )
           }
+          else if(is.null(input$category)){
+            p1 <-
+              data() %>%
+              select(input$xaxis, input$yaxis) %>%
+              filter(!is.null(input$yaxis)) %>%
+              group_by(!!!rlang::syms(input$xaxis)) %>%
+              summarise_all(funs(sum)) %>%
+              pivot_longer(
+                cols = input$yaxis,
+                names_to = "category",
+                values_to = "Value",
+                values_drop_na = TRUE
+              ) %>%
+              rename(
+                col1 = input$xaxis,
+                col2 = Value,
+              ) %>%
+              ggplot(aes(
+                x = col1,
+                y = col2,
+                color = category,
+                text = paste(
+                  "</br>X-axis: ",
+                  col1,
+                  "</br>Y-Axis: ",
+                  col2,
+                  "</br>Category: ",
+                  category
+                )
+              )) +
+              geom_line(aes(group=1)) +
+              scale_x_datetime(expand = c(0, 5000))+
+              geom_point() +
+              theme_minimal() +
+              labs(
+                x = input$xaxis,
+                y = "Value",
+                col = "category"
+              )
+          }
+
           else {
 
             p1 <-

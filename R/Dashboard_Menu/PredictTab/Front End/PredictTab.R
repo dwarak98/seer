@@ -15,15 +15,12 @@ addPredictTabContent <- function(id) {
       box(
         width = 3,
         addPredictorOptions(ns("algo")),
-        uiOutput(ns("P")),
-        uiOutput(ns("Q")),
-        uiOutput(ns("D")),
-        uiOutput(ns("y_variable")),
+        uiOutput(ns("y")),
         uiOutput(ns("x"))
       ),
       box(
         width = 9,
-        uiOutput(ns("table1plot"))
+        DT::dataTableOutput(ns("ForecastTable"))
       )
     )
   )
